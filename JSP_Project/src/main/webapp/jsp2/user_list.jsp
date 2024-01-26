@@ -19,7 +19,8 @@
 	<%@ include file="dbconn.jsp"%>
 	<%
 		String sql = "SELECT * FROM TBL_MEMBER";
-		String keyword = request.getParameter("keyword");
+		String word = request.getParameter("keyword");
+		String keyword = word != null ? word : "";
 		
 		if(keyword != null){
 			sql += " WHERE USERNAME LIKE '%" + keyword + "%'"

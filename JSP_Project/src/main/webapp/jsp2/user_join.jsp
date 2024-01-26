@@ -7,8 +7,11 @@
 <title>회원가입 페이지</title>
 </head>
 <body>
-	<form action="user_join_save.jsp" method="post">
-		<div>아이디 :  <input type="text" name="userId"></div>
+	<form name="join" action="user_join_save.jsp" method="post">
+		<div>
+			아이디 :  <input type="text" name="userId">
+			<input type="button" onclick="idCheck()" value="중복확인">
+		</div>
 		<div>비밀번호 : <input type="password" name="pwd"></div>
 		<div>이름 :    <input type="text" name="userName"></div>
 		<div> <span class="select_input"> 성별 : </span> 
@@ -20,3 +23,12 @@
 
 </body>
 </html>
+
+<script>
+	var join = document.join;
+	function idCheck(){
+		pop = window.open("user_id_check.jsp?userId=" + join.userId.value, "join", "width=300, height=300"); 
+	}
+	
+	
+</script>
