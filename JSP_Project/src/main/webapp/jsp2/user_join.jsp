@@ -18,7 +18,7 @@
 			<label><input type= "radio" name="gender" value = "남자" checked>남자</label>
 			<label><input type= "radio" name="gender" value = "여자">여자</label>
 		</div>
-		<input type="submit" onclick="" value="가입">
+		<input type="submit" value="가입">
 	</form>
 
 </body>
@@ -27,7 +27,12 @@
 <script>
 	var join = document.join;
 	function idCheck(){
-		pop = window.open("user_id_check.jsp?userId=" + join.userId.value, "join", "width=300, height=300"); 
+		var id = join.userId.value;
+		if(id == "" || id == undefined){
+			alert("아이디를 입력해주세요");
+			return;
+		}
+		pop = window.open("user_id_check.jsp?userId=" + id, "join", "width=300, height=300"); 
 	}
 	
 	

@@ -26,6 +26,11 @@
 	}
 	a:hover {
 		color : blue;
+	}
+	
+	.cmt {
+		text-align: center;
+		color : orange;
 	} 
 	
 </style>
@@ -33,20 +38,26 @@
 <body>
 	<%@ include file="dbconn.jsp"%>
 	<%
-		String sql 
-			= "SELECT BOARDNO, TITLE, B.USERID, USERNAME, HIT,"
-			+ "TO_CHAR(CDATETIME, 'YY-MM-DD HH24:MI') AS CDATETIME, "
-			+ "TO_CHAR(UDATETIME, 'YY-MM-DD HH24:MI') AS UDATETIME "
+	String sql = "SELECT B.BOARDNO, TITLE, B.USERID, USERNAME, HIT," 
+			+ "TO_CHAR(B.CDATETIME, 'YY/MM/DD HH24:MI') AS CDATETIME, " 
+			+ "TO_CHAR(B.UDATETIME, 'YY/MM/DD HH24:MI') AS UDATETIME, "
+			+ "C.CNT "
 			+ "FROM TBL_BOARD B "
 			+ "INNER JOIN TBL_MEMBER M ON B.USERID = M.USERID "
-			;
+			+ "LEFT JOIN ( "
+			+ "SELECT B.BOARDNO, COUNT(*) AS CNT "
+			+ "FROM TBL_BOARD B "
+			+ "INNER JOIN TBL_COMMENT C ON B.BOARDNO = C.BOARDNO "
+			+ "GROUP BY B.BOARDNO "
+			+ ") C ON B.BOARDNO = C.BOARDNO "
+		;
 	
 		String keyword = request.getParameter("keyword");
 		if(keyword != null){
-			sql += " WHERE TITLE LIKE '%" + keyword + "%'"; 	
+			sql += " AND WHERE TITLE LIKE '%" + keyword + "%'"; 	
 		}
 		
-		sql +=  "ORDER BY CDATETIME DESC" ;
+		sql +=  " ORDER BY CDATETIME DESC";
 		
 		ResultSet rs = stmt.executeQuery(sql);
 	%>
@@ -72,7 +83,13 @@
 	%>
 		<tr>
 			<td><%= rs.getString("BOARDNO") %></td>
-			<td><a href="board_view.jsp?boardNo=<%= rs.getString("BOARDNO") %>"><%= rs.getString("TITLE") %></a></td>
+			<td><a href="board_view.jsp?boardNo=<%= rs.getString("BOARDNO") %>">
+				<%= rs.getString("TITLE") %> 
+				<% if(rs.getString ("CNT") != null){
+					out.println ("<span class='cmt'>(" + rs.getString("CNT") + ")");
+				} %>
+				</a>
+			</td>
 			<td><%= rs.getString("USERNAME") %></td>
 			<td><%= rs.getString("HIT") %></td>
 			<td><%= rs.getString("CDATETIME") %></td>
