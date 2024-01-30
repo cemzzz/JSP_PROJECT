@@ -32,7 +32,7 @@
 		<div>학과 : 
 			<input type="text">
 		</div>
-		<input type="button" value="추가하기">	
+		<input type="button" value="추가하기">
 	</form>
 </body>
 </html>

@@ -24,6 +24,8 @@
 </body>
 </html>
 <script>
-	var boardNo = documnet.cmtDelete.boardNo.value;
-	location.href="board_view.jsp?boardNo="+boardNo;
+	alert("삭제되었습니다!");
+	history.back();
+	/* var boardNo = document.cmtDelete.boardNo.value;
+	location.href="board_view.jsp?boardNo="+boardNo; */
 </script>

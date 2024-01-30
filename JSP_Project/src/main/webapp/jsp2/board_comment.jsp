@@ -13,7 +13,8 @@
 			String boardNo = request.getParameter("boardNo");
 			String userId = request.getParameter("userId");
 			String comment = request.getParameter("comment");
-			/* String commentNo = request.getParameter("commentNo"); */
+			String commentNo = request.getParameter("commentNo");
+			String kind = request.getParameter("kind");
 			
 			
 			String sql = 
@@ -26,7 +27,20 @@
 					+ "null,"
 					+ "SYSDATE,"
 					+ "SYSDATE )";
-			stmt.executeUpdate(sql);
+			/* stmt.executeUpdate(sql); */
+			
+			String updateSql 
+				= "UPDATE TBL_COMMENT SET"
+				+ " CMT = '" + comment + "'"
+				+ ", UDATETIME = SYSDATE"
+				+ " WHERE COMMENTNO = " + commentNo;
+			
+			if(kind.equals("add")){
+				stmt.executeUpdate(sql);
+			} else {
+				stmt.executeUpdate(updateSql);
+			} 
+			
 		%>
 	</form>
 

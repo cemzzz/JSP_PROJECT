@@ -85,10 +85,21 @@
 			<td><%= rs.getString("BOARDNO") %></td>
 			<td><a href="board_view.jsp?boardNo=<%= rs.getString("BOARDNO") %>">
 				<%= rs.getString("TITLE") %> 
-				<% if(rs.getString ("CNT") != null){
-					out.println ("<span class='cmt'>(" + rs.getString("CNT") + ")");
-				} %>
 				</a>
+				
+				<% if(rs.getString ("CNT") != null){
+				%>
+					<a href='#' onclick="commPop(<%= rs.getString("BOARDNO") %>)">
+						<span style='color:orange;'>
+							(<%=rs.getString("CNT")%>)
+						</span>
+					</a>
+				
+				<%
+				} %>
+				
+				
+				
 			</td>
 			<td><%= rs.getString("USERNAME") %></td>
 			<td><%= rs.getString("HIT") %></td>
@@ -109,5 +120,9 @@
 	function search(){
 		location.href
 			="board_list.jsp?keyword=" + board.keyword.value;
+	}
+	
+	function commPop(boardNo){
+		window.open("comment_popup.jsp?boardNo="+boardNo, "comm", "width=600, height=600");
 	}
 </script>

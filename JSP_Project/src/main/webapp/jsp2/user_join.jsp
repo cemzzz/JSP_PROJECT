@@ -32,7 +32,7 @@
 			alert("아이디를 입력해주세요");
 			return;
 		}
-		pop = window.open("user_id_check.jsp?userId=" + id, "join", "width=300, height=300"); 
+		pop = window.open("user_id_check.jsp?userId=" + id, "join", "width=300, height=300");
 	}
 	
 	
